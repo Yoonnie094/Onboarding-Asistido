@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CER Analytics · Onboarding asistido (prototipo)</title>
+<style>
+:root{--bg:#f3f6f1;--card:#fff;--ink:#1c2b22;--mut:#5d6f63;--line:#d5ded6;--pri:#1f6b4a;--pri2:#e3f1ea;--err:#b3261e;--err2:#fbe9e7;--warn:#8a5a00;--ok:#1f6b4a;--cherry:#a4243b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101814;--card:#18231d;--ink:#e6efe8;--mut:#9fb2a5;--line:#2c3c33;--pri:#5fc28f;--pri2:#1d3328;--err:#ff8a80;--err2:#3a1f1d;--warn:#e8b04a;--ok:#5fc28f;--cherry:#ff7a90}}
+:root[data-theme="dark"]{--bg:#101814;--card:#18231d;--ink:#e6efe8;--mut:#9fb2a5;--line:#2c3c33;--pri:#5fc28f;--pri2:#1d3328;--err:#ff8a80;--err2:#3a1f1d;--warn:#e8b04a;--ok:#5fc28f;--cherry:#ff7a90}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.01em;margin:0}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--card)}
+.brand{font-family:Georgia,serif;font-weight:700;font-size:20px}.brand span{color:var(--pri)}
+.timer{font-variant-numeric:tabular-nums;font-size:14px;color:var(--mut);text-align:right}
+.timer b{color:var(--ink);font-size:18px}
+main{max-width:980px;margin:0 auto;padding:20px}
+.steps{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
+.st{flex:1;min-width:92px;font-size:13px;color:var(--mut);border-top:4px solid var(--line);padding-top:6px}
+.st.done{border-color:var(--pri);color:var(--ink)}.st.now{border-color:var(--cherry);color:var(--ink);font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px}
+h2{font-size:26px;margin-bottom:6px}.sub{color:var(--mut);margin:0 0 18px;max-width:62ch}
+label{display:block;font-size:14px;font-weight:600;margin:12px 0 4px}
+input,select{width:100%;padding:10px 12px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px}
+input:focus,select:focus,button:focus-visible{outline:3px solid var(--pri);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.row{grid-template-columns:1fr}}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.opt{border:2px solid var(--line);border-radius:8px;padding:12px;cursor:pointer;background:var(--bg);text-align:left;font:inherit;color:var(--ink)}
+.opt.on{border-color:var(--pri);background:var(--pri2)}.opt small{display:block;color:var(--mut)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+button.b{padding:11px 20px;border-radius:6px;border:1px solid var(--pri);background:var(--pri);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) button.b{color:#08140d}}
+button.b.g{background:transparent;color:var(--ink);border-color:var(--line)}
+button.b:disabled{opacity:.45;cursor:not-allowed}
+.drop{border:2px dashed var(--pri);border-radius:10px;padding:26px;text-align:center;background:var(--pri2)}
+.files{list-style:none;padding:0;margin:14px 0 0}
+.files li{display:flex;justify-content:space-between;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;margin-bottom:6px;font-size:14px}
+.ok{color:var(--ok);font-weight:700}
+.two{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+svg.map{width:100%;height:auto;border-radius:8px;border:1px solid var(--line);background:#cfdcc6}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--mut);font-weight:600}
+td input{padding:5px 7px;min-width:70px}
+tr.bad td input{border-color:var(--err);background:var(--err2)}
+.msg{color:var(--err);font-size:13px;margin-top:3px}
+.sum{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.pill{padding:6px 12px;border-radius:99px;font-size:14px;font-weight:700}
+.pill.e{background:var(--err2);color:var(--err)}.pill.o{background:var(--pri2);color:var(--ok)}
+.stars button{background:none;border:0;font-size:34px;cursor:pointer;color:var(--line);padding:2px}
+.stars button.on{color:#e0a100}
+.note{font-size:13px;color:var(--mut);margin-top:14px;border-left:3px solid var(--line);padding-left:10px}
+.sam{display:grid;grid-template-columns:1.2fr 1.2fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center}
+@media(max-width:640px){.sam{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">CER <span>Analytics</span> <small style="font-weight:400;font-size:13px;color:var(--mut)">· Configura tu fundo</small></div>
+  <div class="timer">Tiempo de configuración<br><b id="tm">00:00</b> <span>de 10:00</span></div>
+</header>
+<main>
+  <div class="steps" id="steps"></div>
+  <div class="card" id="view"></div>
+  <p class="note">Prototipo de propuesta: los datos, archivos y validaciones son simulados para ilustrar el flujo. Las metas (menos de 10 minutos) son hipótesis por validar en un piloto.</p>
+</main>
+<script>
+var S=['Cuenta','Cartografía','Datos','Validación','Equipo','Listo'];
+var st={step:0,role:'Agrónomo',map:false,xls:false,stars:0,team:[{n:'Luis Pérez',c:'+56 9 5555 1111',q:'C1'}]};
+var t0=Date.now();
+var VAR=['Lapins','Santina','Regina','Kordia','Sweetheart','Royal Dawn'];
+var rows=[
+ {q:'C1',e:'Cerezo',v:'Lapins',a:'2016',d:'1111'},
+ {q:'C2',e:'Cerezo',v:'Santina',a:'2018',d:'1250'},
+ {q:'C3',e:'Cerezo',v:'Regina',a:'2015',d:'mil'},
+ {q:'C4',e:'Cerezo',v:'Kordia',a:'2031',d:'1000'},
+ {q:'C5',e:'Cerezo',v:'Lapin',a:'2019',d:'1330'}
+];
+function err(r){var m={};
+ var d=Number(r.d); if(r.d===''||isNaN(d)) m.d='Densidad debe ser un número (plantas por hectárea).'; else if(d<200||d>2500) m.d='Densidad fuera de rango esperado (200–2.500).';
+ var a=Number(r.a); if(isNaN(a)||a<1990||a>2026) m.a='Año de plantación no puede ser posterior a 2026.';
+ if(VAR.indexOf(r.v)<0) m.v='Variedad no reconocida. ¿Quisiste decir "'+(r.v==='Lapin'?'Lapins':VAR[0])+'"?';
+ return m}
+function nerr(){var n=0;rows.forEach(function(r){n+=Object.keys(err(r)).length});return n}
+setInterval(function(){var s=Math.floor((Date.now()-t0)/1000),m=Math.floor(s/60);s%=60;document.getElementById('tm').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s},1000);
+function go(n){st.step=n;draw()}
+function mapSVG(ok){
+ var c=['#7fb06a','#8cbf72','#6fa35b','#92c27a','#78ab63'];
+ var P=['30,30 170,25 180,120 40,130','175,25 300,35 305,125 185,120','40,135 180,125 190,225 45,230','185,125 305,130 310,225 195,225','315,40 385,45 380,225 315,225'];
+ var s='<svg class="map" viewBox="0 0 400 260" role="img" aria-label="Vista previa de cuarteles">';
+ P.forEach(function(p,i){var bad=!ok&&(i==2||i==3);var x=p.split(' ')[0].split(',');
+  s+='<polygon points="'+p+'" fill="'+(bad?'#e0a85a':c[i])+'" stroke="'+(bad?'#b3261e':'#fff')+'" stroke-width="'+(bad?3:2)+'" fill-opacity=".85"/><text x="'+(+x[0]+14)+'" y="'+(+x[1]+22)+'" font-size="14" font-weight="700" fill="#10331f">C'+(i+1)+'</text>'});
+ return s+'</svg>'}
+function draw(){
+ document.getElementById('steps').innerHTML=S.map(function(n,i){return '<div class="st '+(i<st.step?'done':i==st.step?'now':'')+'">'+(i+1)+'. '+n+'</div>'}).join('');
+ var v=document.getElementById('view'),h='';
+ if(st.step==0){
+  h='<h2>Crea tu cuenta y tu fundo</h2><p class="sub">Responde estos datos básicos. Después subirás tus mapas y planillas tal como las tienes.</p>'+
+  '<div class="row"><div><label for="n">Nombre</label><input id="n" value="Camila Soto"></div><div><label for="em">Correo</label><input id="em" value="camila@fundoejemplo.cl"></div></div>'+
+  '<div class="row"><div><label for="f">Nombre del fundo</label><input id="f" value="Fundo Santa Paulina"></div><div><label for="z">Zona</label><select id="z"><option>O\u2019Higgins</option><option>Maule</option><option>Región Metropolitana</option></select></div></div>'+
+  '<label>¿Cuál es tu rol?</label><div class="opts"><button class="opt '+(st.role=='Agrónomo'?'on':'')+'" onclick="st.role=\'Agrónomo\';draw()"><b>Administrador / Agrónomo</b><small>Configura el fundo y revisa reportes en la web</small></button><button class="opt '+(st.role=='Muestreador'?'on':'')+'" onclick="st.role=\'Muestreador\';draw()"><b>Muestreador de campo</b><small>Cuenta yemas y frutos en la app móvil</small></button></div>'+
+  (st.role=='Muestreador'?'<p class="note">Los muestreadores no configuran el fundo: tu administrador te invitará y recibirás un enlace para la app.</p>':'')+
+  '<div class="nav"><span></span><button class="b" onclick="go(1)">Continuar</button></div>';
+ }
+ if(st.step==1){
+  h='<h2>Sube el mapa de tus cuarteles</h2><p class="sub">Acepta KML, GeoJSON y Shapefile (.zip). Los archivos se revisan y se limpian antes de guardarse.</p>'+
+  '<div class="two"><div>'+(st.map?'<ul class="files"><li><span>fundo_santa_paulina.kml</span><span class="ok">5 cuarteles detectados</span></li></ul>':'<div class="drop"><p style="margin:0 0 10px"><b>Arrastra tu archivo aquí</b><br><span style="color:var(--mut)">o elige uno desde tu equipo</span></p><button class="b" onclick="st.map=true;draw()">Usar archivo de ejemplo</button></div>')+
+  '<p class="note">Si no tienes archivo, podrás dibujar los cuarteles sobre el mapa satelital. Si la conexión se corta, tu avance queda guardado.</p></div><div>'+(st.map?mapSVG(false):'<div style="padding:60px 10px;text-align:center;color:var(--mut);border:1px solid var(--line);border-radius:8px">La vista previa aparecerá aquí</div>')+'</div></div>'+
+  '<div class="nav"><button class="b g" onclick="go(0)">Volver</button><button class="b" '+(st.map?'':'disabled')+' onclick="go(2)">Continuar</button></div>';
+ }
+ if(st.step==2){
+  h='<h2>Sube los datos de tus cuarteles</h2><p class="sub">Especie, variedad, año de plantación, densidad e historial de cosecha. ¿No tienes planilla? Descarga la plantilla y complétala.</p>'+
+  (st.xls?'<ul class="files"><li><span>cuarteles_2026.xlsx</span><span class="ok">5 filas leídas · columnas reconocidas automáticamente</span></li></ul><p style="font-size:14px;color:var(--mut)">Reconocimos "Var." como <b>Variedad</b>, "Año plant." como <b>Año de plantación</b> y "Pl/ha" como <b>Densidad</b>.</p>':
+  '<div class="drop"><p style="margin:0 0 10px"><b>Arrastra tu planilla Excel o CSV</b></p><button class="b" onclick="st.xls=true;draw()">Usar planilla de ejemplo</button> <button class="b g" style="margin-left:6px" onclick="alert(\'En el sistema real: descarga de plantilla estándar .xlsx\')">Descargar plantilla</button></div>')+
+  '<div class="nav"><button class="b g" onclick="go(1)">Volver</button><button class="b" '+(st.xls?'':'disabled')+' onclick="go(3)">Revisar datos</button></div>';
+ }
+ if(st.step==3){
+  var n=nerr();
+  h='<h2>Revisa y corrige</h2><p class="sub">Marcamos lo que no calza. Corrige directamente en la tabla; no necesitas volver a subir el archivo.</p>'+
+  '<div class="sum"><span class="pill '+(n?'e':'o')+'" id="pl">'+(n?n+' por corregir':'Todo en orden')+'</span><span class="pill o">5 cuarteles</span></div>'+
+  '<div class="two"><div class="tw"><table><tr><th>Cuartel</th><th>Variedad</th><th>Año</th><th>Plantas/ha</th></tr>'+
+  rows.map(function(r,i){var e=err(r),b=Object.keys(e).length;
+   function c(k,w){return '<td><input aria-label="'+k+' '+r.q+'" value="'+r[k]+'" oninput="ed('+i+',\''+k+'\',this.value)" style="'+(e[k]?'border-color:var(--err);background:var(--err2)':'')+'">'+(e[k]?'<div class="msg">'+e[k]+'</div>':'')+'</td>'}
+   return '<tr><td><b>'+r.q+'</b></td>'+c('v')+c('a')+c('d')+'</tr>'}).join('')+'</table></div><div id="mp">'+mapSVG(n==0)+'<p style="font-size:13px;color:var(--mut)">'+(n?'Los cuarteles C3 y C4 tienen datos por corregir.':'Cuarteles verificados.')+'</p></div></div>'+
+  '<div class="nav"><button class="b g" onclick="go(2)">Volver</button><button class="b" id="nx" '+(n?'disabled':'')+' onclick="go(4)">Continuar</button></div>';
+ }
+ if(st.step==4){
+  h='<h2>Asigna a tu equipo de muestreo</h2><p class="sub">Cada muestreador recibe una invitación por correo o WhatsApp y solo verá los cuarteles que le asignes.</p>'+
+  st.team.map(function(m,i){return '<div class="sam"><input aria-label="Nombre" value="'+m.n+'" oninput="st.team['+i+'].n=this.value"><input aria-label="Contacto" value="'+m.c+'" oninput="st.team['+i+'].c=this.value"><select aria-label="Cuartel" onchange="st.team['+i+'].q=this.value">'+['C1','C2','C3','C4','C5'].map(function(q){return '<option'+(q==m.q?' selected':'')+'>'+q+'</option>'}).join('')+'</select><button class="b g" onclick="st.team.splice('+i+',1);draw()" aria-label="Quitar">Quitar</button></div>'}).join('')+
+  '<button class="b g" onclick="st.team.push({n:\'\',c:\'\',q:\'C1\'});draw()">Agregar muestreador</button>'+
+  '<div class="nav"><button class="b g" onclick="go(3)">Volver</button><button class="b" onclick="go(5)">Terminar configuración</button></div>';
+ }
+ if(st.step==5){
+  var s=Math.floor((Date.now()-t0)/1000);
+  h='<h2>Tu fundo está listo</h2><p class="sub">Los 5 cuarteles ya están disponibles en la app CER Counter y las invitaciones fueron enviadas a '+st.team.length+' muestreador(es).</p>'+
+  '<div class="sum"><span class="pill o">5 cuarteles validados</span><span class="pill o">'+st.team.length+' invitaciones enviadas</span><span class="pill o">Configurado en '+Math.floor(s/60)+' min '+(s%60)+' s</span></div>'+
+  '<label>¿Qué tan fácil fue configurar tu fundo?</label><div class="stars" role="group" aria-label="Calificación">'+[1,2,3,4,5].map(function(i){return '<button class="'+(i<=st.stars?'on':'')+'" onclick="st.stars='+i+';draw()" aria-label="'+i+' estrellas">\u2605</button>'}).join('')+'</div>'+
+  (st.stars?'<p class="ok">Gracias. Tu respuesta nos ayuda a mejorar el proceso.</p>':'')+
+  '<div class="nav"><button class="b g" onclick="go(0)">Reiniciar demo</button><button class="b" onclick="alert(\'En el sistema real: ir al panel de reportes\')">Ir a mi panel</button></div>';
+ }
+ v.innerHTML=h;
+}
+function ed(i,k,val){rows[i][k]=val;var n=nerr();
+ /* actualizar solo contadores para no perder el foco */
+ var p=document.getElementById('pl');p.className='pill '+(n?'e':'o');p.textContent=n?n+' por corregir':'Todo en orden';
+ document.getElementById('nx').disabled=n>0;document.getElementById('mp').innerHTML=mapSVG(n==0)+'<p style="font-size:13px;color:var(--mut)">'+(n?'Aún hay datos por corregir.':'Cuarteles verificados.')+'</p>';
+ var tr=document.querySelectorAll('tbody tr')[i+1],e=err(rows[i]);
+ var inp=tr.querySelectorAll('input');['v','a','d'].forEach(function(key,j){var o=inp[j],m=o.parentNode.querySelector('.msg');
+  o.style.borderColor=e[key]?'var(--err)':'';o.style.background=e[key]?'var(--err2)':'';
+  if(e[key]){if(!m){m=document.createElement('div');m.className='msg';o.parentNode.appendChild(m)}m.textContent=e[key]}else if(m)m.remove()})}
+draw();
+</script>
+</body>
+</html>
