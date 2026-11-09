@@ -1,0 +1,71 @@
+/* Estilos propios del mapa de cuarteles (complementan leaflet/dist/leaflet.css). */
+
+.cer-map .leaflet-container {
+  font-family: inherit;
+  background: #dfe7df;
+}
+
+.cer-map .leaflet-tooltip.cer-block-label {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 0 3px rgb(0 0 0 / 85%),
+    0 1px 2px rgb(0 0 0 / 70%);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.cer-map .leaflet-tooltip.cer-block-label::before {
+  display: none;
+}
+
+.cer-map .leaflet-tooltip.cer-block-label.is-highlighted {
+  color: #fde047;
+  font-size: 12px;
+}
+
+.cer-map .leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgb(28 43 34 / 22%);
+}
+
+.cer-map .leaflet-popup-content {
+  margin: 12px 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #1c2b22;
+}
+
+.cer-map .cer-popup-code {
+  display: inline-block;
+  margin-bottom: 2px;
+  border-radius: 999px;
+  background: #e8f0e9;
+  padding: 1px 8px;
+  color: #1f6b4a;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cer-map .cer-popup-title {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.cer-map .cer-popup-details {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #617267;
+}
+
+.cer-map .leaflet-control-attribution {
+  font-size: 10px;
+}

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Fundo Santa Elena - cuarteles (demo)</name>
+    <description>Cartografía de ejemplo: 10 cuarteles de cerezo cerca de Rengo, Región de O'Higgins.</description>
+    <Style id="cuartel">
+      <LineStyle><color>ffffffff</color><width>2</width></LineStyle>
+      <PolyStyle><color>7f4a6b1f</color></PolyStyle>
+    </Style>
+    <Placemark>
+      <name>C-01</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-01</value></Data>
+        <Data name="nombre"><value>Cuartel 1</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.8660067,-34.4037201,0 -70.8660067,-34.4048017,0 -70.864809,-34.4048017,0 -70.864809,-34.4037201,0 -70.8660067,-34.4037201,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-02</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-02</value></Data>
+        <Data name="nombre"><value>Cuartel 2</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.8646566,-34.4037201,0 -70.8646566,-34.4048017,0 -70.8630235,-34.4048017,0 -70.8630235,-34.4037201,0 -70.8646566,-34.4037201,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-03</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-03</value></Data>
+        <Data name="nombre"><value>Cuartel 3</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.862871,-34.4037201,0 -70.862871,-34.4048017,0 -70.8614556,-34.4048017,0 -70.8614556,-34.4037201,0 -70.862871,-34.4037201,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-04</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-04</value></Data>
+        <Data name="nombre"><value>Cuartel 4</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.8613032,-34.4037201,0 -70.8613032,-34.4048017,0 -70.8594523,-34.4048017,0 -70.8594523,-34.4037201,0 -70.8613032,-34.4037201,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-05</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-05</value></Data>
+        <Data name="nombre"><value>Cuartel 5</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.8592998,-34.4037201,0 -70.8592998,-34.4048017,0 -70.8579933,-34.4048017,0 -70.8579933,-34.4037201,0 -70.8592998,-34.4037201,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-06</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-06</value></Data>
+        <Data name="nombre"><value>Cuartel 6</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.8660067,-34.4049279,0 -70.8660067,-34.4062799,0 -70.8644824,-34.4062799,0 -70.8644824,-34.4049279,0 -70.8660067,-34.4049279,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-07</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-07</value></Data>
+        <Data name="nombre"><value>Cuartel 7</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.86433,-34.4049279,0 -70.86433,-34.4062799,0 -70.8632412,-34.4062799,0 -70.8632412,-34.4049279,0 -70.86433,-34.4049279,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-08</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-08</value></Data>
+        <Data name="nombre"><value>Cuartel 8</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.8630888,-34.4049279,0 -70.8630888,-34.4062799,0 -70.8613467,-34.4062799,0 -70.8613467,-34.4049279,0 -70.8630888,-34.4049279,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-09</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-09</value></Data>
+        <Data name="nombre"><value>Cuartel 9</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.8611943,-34.4049279,0 -70.8611943,-34.4062799,0 -70.8598333,-34.4062799,0 -70.8598333,-34.4049279,0 -70.8611943,-34.4049279,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>C-10</name>
+      <styleUrl>#cuartel</styleUrl>
+      <ExtendedData>
+        <Data name="codigo"><value>C-10</value></Data>
+        <Data name="nombre"><value>Cuartel 10</value></Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-70.8596809,-34.4049279,0 -70.8596809,-34.4062799,0 -70.8580477,-34.4062799,0 -70.8580477,-34.4049279,0 -70.8596809,-34.4049279,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

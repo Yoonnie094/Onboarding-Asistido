@@ -6,7 +6,9 @@ export async function updateSupabaseSession(request: NextRequest) {
   const config = getSupabasePublicConfig();
   const isPrivateRoute =
     request.nextUrl.pathname === "/dashboard" ||
-    request.nextUrl.pathname.startsWith("/dashboard/");
+    request.nextUrl.pathname.startsWith("/dashboard/") ||
+    request.nextUrl.pathname === "/onboarding" ||
+    request.nextUrl.pathname.startsWith("/onboarding/");
 
   if (!config) {
     if (isPrivateRoute) {

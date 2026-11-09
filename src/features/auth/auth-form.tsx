@@ -12,12 +12,16 @@ type AuthMode = "login" | "register";
 export function AuthForm({
   mode,
   supabaseConfigured,
+  initialError = null,
 }: {
   mode: AuthMode;
   supabaseConfigured: boolean;
+  /** Aviso a mostrar al cargar (p. ej. desde /login?error=auth_callback). */
+  initialError?: string | null;
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [noticeDismissed, setNoticeDismissed] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const router = useRouter();
   const isRegistering = mode === "register";
@@ -25,6 +29,7 @@ export function AuthForm({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage(null);
+    setNoticeDismissed(true);
     setSuccessMessage(null);
 
     const formData = new FormData(event.currentTarget);
@@ -109,7 +114,7 @@ export function AuthForm({
       title={isRegistering ? "Crea tu cuenta" : "Bienvenido de vuelta"}
     >
       <form className="space-y-5" onSubmit={handleSubmit}>
-        {!supabaseConfigured ? (
+        {!supabaseConfigured && !initialError ? (
           <p
             aria-live="polite"
             className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950"
@@ -118,9 +123,18 @@ export function AuthForm({
             Supabase aún no está conectado. Completa las variables de entorno indicadas en el README para habilitar el acceso.
           </p>
         ) : null}
+        {initialError && !noticeDismissed ? (
+          <p
+            aria-live="polite"
+            className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950"
+            role="alert"
+          >
+            {initialError}
+          </p>
+        ) : null}
         {!isRegistering ? null : (
           <p className="rounded-xl border border-border bg-mist px-4 py-3 text-sm leading-6 text-muted">
-            El registro crea una cuenta de acceso. La creación y asignación de fundos todavía no está habilitada.
+            Después de crear tu cuenta te guiaremos paso a paso para configurar tu fundo, en menos de 10 minutos.
           </p>
         )}
 
@@ -198,6 +212,26 @@ function getAuthErrorMessage(message: string, mode: AuthMode): string {
 
   if (normalizedMessage.includes("weak password")) {
     return "La contraseña no cumple los requisitos configurados para este proyecto.";
+  }
+
+  if (normalizedMessage.includes("at least") && normalizedMessage.includes("characters")) {
+    return "La contraseña debe tener al menos 6 caracteres.";
+  }
+
+  if (normalizedMessage.includes("already registered") || normalizedMessage.includes("already been registered")) {
+    return "Ya existe una cuenta con este correo. Inicia sesión.";
+  }
+
+  if (normalizedMessage.includes("rate limit")) {
+    return "Demasiados intentos seguidos. Espera un minuto e inténtalo nuevamente.";
+  }
+
+  if (normalizedMessage.includes("invalid") && normalizedMessage.includes("email")) {
+    return "Supabase no acepta este correo. Usa una dirección real (por ejemplo tucorreo+prueba@gmail.com).";
+  }
+
+  if (normalizedMessage.includes("signups not allowed") || normalizedMessage.includes("signup is disabled")) {
+    return "El registro de cuentas está desactivado en Supabase.";
   }
 
   return mode === "register"
